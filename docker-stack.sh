@@ -23,12 +23,11 @@ deploy () {
     docker create \
         --name pihole \
         -p 80:80 \
-        -p 443:443 \
         -p 53:53/tcp -p 53:53/udp \
         -e TZ="Berlin/Europe" \
         -e DNS1="10.0.0.2#53" \
         -e DNS2="no" \
-        -e ServerIP=$(uci show network.lan.ipaddr | cut -d'=' -f2 | tr -d "'") \
+        -e ServerIP=10.19.89.3 \
         -v $(pwd)/pihole/etc-pihole/:/etc/pihole/ \
         -v $(pwd)/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/ \
         -v $(pwd)/pihole/01-pihole.conf:/etc/.pihole/advanced/01-pihole.conf:ro \
