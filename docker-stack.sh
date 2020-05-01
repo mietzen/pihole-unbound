@@ -22,10 +22,10 @@ deploy () {
         -e TZ="Berlin/Europe" \
         -e DNS1="10.0.0.2#53" \
         -e DNS2="no" \
-        -e ServerIP=$(uci show network.lan.ipaddr | cut -d'=' -f2)
-        -e CONDITIONAL_FORWARDING=True
-        -e CONDITIONAL_FORWARDING_IP=$(uci show network.lan.ipaddr | cut -d'=' -f2)
-        -e CONDITIONAL_FORWARDING_DOMAIN=$(uci show dhcp.@dnsmasq[0].domain | cut -d'=' -f2)
+        -e ServerIP=$(uci show network.lan.ipaddr | cut -d'=' -f2) \
+        -e CONDITIONAL_FORWARDING=True \
+        -e CONDITIONAL_FORWARDING_IP=$(uci show network.lan.ipaddr | cut -d'=' -f2) \
+        -e CONDITIONAL_FORWARDING_DOMAIN=$(uci show dhcp.@dnsmasq[0].domain | cut -d'=' -f2) \
         -v $(pwd)/pihole/etc-pihole/:/etc/pihole/ \
         -v $(pwd)/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/ \
         -v $(pwd)/pihole/01-pihole.conf:/etc/.pihole/advanced/01-pihole.conf:ro \
