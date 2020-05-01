@@ -48,7 +48,7 @@ remove () {
     echo "Removing containers..."
     docker rm unbound pihole
     echo "Removing network..."
-    docker network rm pihole_net
+    docker network rm pihole_net pihole_external
 }
 
 restart () {
