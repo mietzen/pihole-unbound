@@ -9,7 +9,7 @@ deploy () {
     docker network create -d macvlan \
         --subnet=10.19.89.0/24 \
         --gateway=10.19.89.1 \
-        -o parent=eth1 pihole_external
+        -o parent=br-lan pihole_external
 
     echo "Run unbound"
     docker run -d \
