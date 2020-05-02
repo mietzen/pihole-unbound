@@ -1,11 +1,13 @@
 #!/bin/sh
 
-deploy () {
+init () {
     echo "Create pihole_net"
     docker network create -d bridge pihole_net \
         --subnet=10.19.88.0/29 \
         -o "com.docker.network.bridge.name=br-pihole"
+}
 
+start () {
     echo "Start unbound"
     docker run -d \
         --name unbound \
@@ -32,18 +34,16 @@ deploy () {
         pihole/pihole:v4.4
 }
 
-remove () {
+stop () {
     echo "Stopping containers..."
     docker stop unbound pihole
     echo "Removing containers..."
     docker rm unbound pihole
-    echo "Removing network..."
-    docker network rm pihole_net
 }
 
 restart () {
-    remove
-    deploy
+    stop
+    start
 }
 
 "$@"
