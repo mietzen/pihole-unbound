@@ -3,8 +3,8 @@
 deploy () {
     echo "Create pihole_net"
     docker network create -d bridge pihole_net \
-        --subnet=10.19.88.0/29
-        -o "com.docker.network.bridge.name=br-pihole" 
+        --subnet=10.19.88.0/29 \
+        -o "com.docker.network.bridge.name=br-pihole"
 
     echo "Start unbound"
     docker run -d \
