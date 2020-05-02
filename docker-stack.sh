@@ -9,6 +9,8 @@ deploy () {
     docker network create -d macvlan \
         --subnet=10.19.89.0/24 \
         --gateway=10.19.89.1 \
+        --ip-range 10.19.89.9/30 \
+        --aux-address 'host=10.19.89.9' \
         -o parent=br-lan pihole_external
 
     echo "Run unbound"
@@ -27,12 +29,12 @@ deploy () {
         -e TZ="Berlin/Europe" \
         -e DNS1="10.0.0.2#53" \
         -e DNS2="no" \
-        -e ServerIP=10.19.89.3 \
+        -e ServerIP=10.19.89.10 \
         -v $(pwd)/pihole/etc-pihole/:/etc/pihole/ \
         -v $(pwd)/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/ \
         -v $(pwd)/pihole/01-pihole.conf:/etc/.pihole/advanced/01-pihole.conf:ro \
         --dns=127.0.0.1 --dns=10.64.0.1 \
-        --network=pihole_external --ip=10.19.89.3 \
+        --network=pihole_external --ip=10.19.89.10 \
         --restart=unless-stopped \
         --cap-add=NET_ADMIN \
         --link unbound \
